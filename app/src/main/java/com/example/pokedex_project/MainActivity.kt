@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String) {
-    Text(text = "Esta es mi rama")
+    Text(text = "Este es el merge a la rama master")
 }
 
 @Preview(showBackground = true)
