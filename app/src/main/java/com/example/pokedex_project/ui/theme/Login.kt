@@ -5,10 +5,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -50,12 +47,14 @@ fun LoginScreen() {
     ConstraintLayout(Modifier.fillMaxSize()) {
         val (header, body, footer) = createRefs()
         val guideline1 = createGuidelineFromTop(0.3f)
-        Header(modifier = Modifier.constrainAs(header){
-            top.linkTo(parent.top)
-            bottom.linkTo(guideline1)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-        })
+        Header(modifier = Modifier
+            .fillMaxWidth()
+            .constrainAs(header) {
+                top.linkTo(parent.top)
+                bottom.linkTo(guideline1)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            })
     }
 }
 /*
@@ -68,7 +67,7 @@ fun LoginScreen() {
 fun Header(modifier: Modifier){
     ConstraintLayout {
         val (foto1, foto2, texto) = createRefs()
-        val guia = createGuidelineFromStart(0.5f)
+        val guia = createGuidelineFromStart(0.1f)
         Image(
             painter = painterResource(id = R.drawable.charmander),
             contentDescription = "Foto de charmander para el login",
@@ -77,9 +76,9 @@ fun Header(modifier: Modifier){
                 .constrainAs(foto1) {
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
-                    start.linkTo(parent.start)
+                    start.linkTo(guia)
                 }
-                .padding(15.dp))
+                )
         Image(
             painter = painterResource(id = R.drawable.charmander),
             contentDescription ="Foto con el nombre pokedex para el login",
@@ -88,7 +87,7 @@ fun Header(modifier: Modifier){
                 .constrainAs(foto2) {
                     top.linkTo(parent.top)
                     bottom.linkTo(texto.top)
-                    start.linkTo(guia)
+                    start.linkTo(foto1.end)
                     end.linkTo(parent.end)
                 })
         Text(text = "End of degree project",
@@ -99,6 +98,7 @@ fun Header(modifier: Modifier){
                 end.linkTo(foto2.end)
             }
         )
+        Box(modifier = Modifier.fillMaxWidth())
     }
 }
 
