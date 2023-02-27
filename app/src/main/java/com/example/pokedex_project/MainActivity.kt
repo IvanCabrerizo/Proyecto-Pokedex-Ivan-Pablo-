@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Hello my name is Pablo")
+                    Greeting()
                 }
             }
         }
@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
+fun Greeting() {
     Text(text = "Este es el merge a la rama master")
 }
 
@@ -38,6 +38,6 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     PokedexProjectTheme {
-        Greeting("Android")
+        Greeting()
     }
 }
