@@ -5,12 +5,16 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,26 +49,43 @@ class Login : ComponentActivity() {
 @Composable
 fun LoginScreen() {
     ConstraintLayout(Modifier.fillMaxSize()) {
-        val (header, body, footer) = createRefs()
-        val guideline1 = createGuidelineFromTop(0.3f)
-        Header(modifier = Modifier
-            .fillMaxWidth()
-            .constrainAs(header) {
-                top.linkTo(parent.top)
-                bottom.linkTo(guideline1)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            })
+        val (header, body) = createRefs()
+        /*
+        *
+        *Autor: Pablo Muñoz
+        *Cabezera de la aplicacion ya desarrollada
+        *
+        * */
+        Column(Modifier.fillMaxSize()) {
+            Box(
+                Modifier
+                    .fillMaxHeight(0.2f)
+                    .fillMaxWidth()) {
+                    Column(Modifier.fillMaxSize()) {
+                        Spacer(modifier = Modifier
+                            .fillMaxWidth()
+                            .height(10.dp))
+                        Header()
+                    }
+
+                }
+            Box(
+                Modifier
+                    .fillMaxSize()){
+                    Body()
+                }
+        }
+
     }
 }
 /*
 *
 * Autor: Pablo Muñoz
-* Cabezera del login, con los componentes imagen1, imagen2 y texto
+* Diseño de la cabezera del login, con los componentes imagen1, imagen2 y texto
 *
 * */
 @Composable
-fun Header(modifier: Modifier){
+fun Header(){
     ConstraintLayout {
         val (foto1, foto2, texto) = createRefs()
         val guia = createGuidelineFromStart(0.1f)
@@ -98,7 +119,51 @@ fun Header(modifier: Modifier){
                 end.linkTo(foto2.end)
             }
         )
-        Box(modifier = Modifier.fillMaxWidth())
+    }
+}
+/*
+*
+* Autor: Pablo Muñoz
+* Diseño del cuerpo del Login
+*
+* */
+@Composable
+fun Body(){
+    Column(Modifier.fillMaxSize()) {
+        var nombre by remember{mutableStateOf("")}
+        var constrasena by remember{ mutableStateOf("") }
+
+        Spacer(modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxSize(0.07f))
+
+        Text(text = "Username", Modifier.padding(60.dp, 16.dp))
+
+        TextField(
+            value = nombre,
+            onValueChange = {nombre = it},
+            Modifier.padding(40.dp, 16.dp)
+        )
+
+        Text(text = "Password",  Modifier.padding(60.dp, 16.dp))
+
+        TextField(
+            value = constrasena,
+            onValueChange = {constrasena = it},
+            Modifier.padding(40.dp, 16.dp)
+        )
+        Spacer(
+            Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.5f))
+        Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly) {
+            Button(onClick = { /*TODO*/ }) {
+                Text(text = "Login")
+            }
+            Button(onClick = { /*TODO*/ }) {
+                Text(text = "Signup")
+            }
+        }
     }
 }
 
