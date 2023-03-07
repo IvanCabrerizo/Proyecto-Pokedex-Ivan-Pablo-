@@ -1,4 +1,4 @@
-package com.example.pokedex_project
+package com.example.pokedex_project.Login
 
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,22 +35,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.pokedex_project.R
 import com.example.pokedex_project.ui.theme.PokedexProjectTheme
 
-class Login : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            PokedexProjectTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    LoginScreen()
-                }
-            }
-        }
-    }
-}
+
 
 /*
 *
@@ -59,7 +45,7 @@ class Login : ComponentActivity() {
 * */
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(loginViewModel: LoginViewModel) {
     /*
      *
      *Autor: Pablo Muñoz
@@ -75,13 +61,13 @@ fun LoginScreen() {
                 Spacer(modifier = Modifier
                     .fillMaxWidth()
                     .height(30.dp))
-                Header()
+                Header(loginViewModel)
             }
         }
             Box(
                 Modifier
                     .fillMaxSize()){
-                    Body()
+                    Body(loginViewModel)
                 }
         }
 
@@ -93,7 +79,7 @@ fun LoginScreen() {
 *
 * */
 @Composable
-fun Header(){
+fun Header(loginViewModel: LoginViewModel){
     ConstraintLayout {
         val (foto1, foto2, texto) = createRefs()
         val guia = createGuidelineFromStart(0.1f)
@@ -136,10 +122,11 @@ fun Header(){
 *
 * */
 @Composable
-fun Body(){
+fun Body(loginViewModel: LoginViewModel){
     Column(Modifier.fillMaxSize()) {
-        var nombre by remember{mutableStateOf("")}
-        var constrasena by remember{ mutableStateOf("") }
+        val name:String by loginViewModel.name.observeAsState("")
+        val password:String by loginViewModel.password.observeAsState("")
+        val isLoginEnabled by loginViewModel.isLoginEnable.observeAsState(false)
         var passwordVisibility by remember { mutableStateOf(false) }
 
         Spacer(modifier = Modifier
@@ -149,8 +136,10 @@ fun Body(){
         Text(text = "Username", Modifier.padding(60.dp, 12.dp), fontSize = 20.sp)
 
         TextField(
-            value = nombre,
-            onValueChange = {nombre = it},
+            value = name,
+            onValueChange = {
+                loginViewModel.onLoginChanged(it, password = password)
+                            },
             Modifier
                 .padding(40.dp, 16.dp)
                 .border(1.dp, Color.Black, RectangleShape),
@@ -161,8 +150,10 @@ fun Body(){
         Text(text = "Password",  Modifier.padding(60.dp, 12.dp), fontSize = 20.sp)
 
         TextField(
-            value = constrasena,
-            onValueChange = {constrasena = it},
+            value = password,
+            onValueChange = {
+                 loginViewModel.onLoginChanged(name = name, password = it)
+                            },
             Modifier
                 .padding(40.dp, 16.dp)
                 .border(1.dp, Color.Black, RectangleShape),
@@ -208,6 +199,6 @@ fun Body(){
 @Composable
 fun DefaultPreview2() {
     PokedexProjectTheme {
-        LoginScreen()
+        LoginScreen(LoginViewModel())
     }
 }
