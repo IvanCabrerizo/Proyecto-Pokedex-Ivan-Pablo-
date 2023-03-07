@@ -184,10 +184,10 @@ fun Body(loginViewModel: LoginViewModel){
                 .fillMaxWidth()
                 .fillMaxHeight(0.4f))
         Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly) {
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { loginPressed() }, enabled = isLoginEnabled) {
                 Text(text = "Login")
             }
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { signupPressed() }) {
                 Text(text = "Signup")
             }
         }

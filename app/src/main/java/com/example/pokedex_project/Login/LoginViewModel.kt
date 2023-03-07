@@ -25,3 +25,11 @@ class LoginViewModel:ViewModel() {
     fun enableLogin(email:String, password: String) =
         password.length > 6
 }
+
+    fun loginPressed(){
+
+    }
+
+    fun signupPressed(){
+
+    }
