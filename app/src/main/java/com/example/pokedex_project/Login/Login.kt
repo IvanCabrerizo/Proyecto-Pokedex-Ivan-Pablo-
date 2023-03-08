@@ -32,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
 import com.example.pokedex_project.R
 import com.example.pokedex_project.ui.theme.PokedexProjectTheme
 
@@ -45,7 +46,7 @@ import com.example.pokedex_project.ui.theme.PokedexProjectTheme
 * */
 
 @Composable
-fun LoginScreen(loginViewModel: LoginViewModel) {
+fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController) {
     /*
      *
      *Autor: Pablo Muñoz
@@ -67,7 +68,7 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
             Box(
                 Modifier
                     .fillMaxSize()){
-                    Body(loginViewModel)
+                    Body(loginViewModel, navController)
                 }
         }
 
@@ -122,7 +123,7 @@ fun Header(loginViewModel: LoginViewModel){
 *
 * */
 @Composable
-fun Body(loginViewModel: LoginViewModel){
+fun Body(loginViewModel: LoginViewModel, navController: NavController){
     Column(Modifier.fillMaxSize()) {
         val name:String by loginViewModel.name.observeAsState("")
         val password:String by loginViewModel.password.observeAsState("")
@@ -162,10 +163,10 @@ fun Body(loginViewModel: LoginViewModel){
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             trailingIcon = {
                 val imagen = if (passwordVisibility) {
-                    Icons.Filled.VisibilityOff
+                    Icons.Filled.Visibility
                 }
                 else{
-                    Icons.Filled.Visibility
+                    Icons.Filled.VisibilityOff
                 }
                 IconButton(onClick = { passwordVisibility = !passwordVisibility}) {
                     Icon(imageVector = imagen, contentDescription = "Show password")
@@ -184,21 +185,12 @@ fun Body(loginViewModel: LoginViewModel){
                 .fillMaxWidth()
                 .fillMaxHeight(0.4f))
         Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly) {
-            Button(onClick = { loginPressed() }, enabled = isLoginEnabled) {
+            Button(onClick = { loginPressed(navController) }, enabled = isLoginEnabled) {
                 Text(text = "Login")
             }
-            Button(onClick = { signupPressed() }) {
+            Button(onClick = { signupPressed(navController) }) {
                 Text(text = "Signup")
             }
         }
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview2() {
-    PokedexProjectTheme {
-        LoginScreen(LoginViewModel())
     }
 }

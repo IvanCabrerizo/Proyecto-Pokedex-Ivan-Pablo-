@@ -4,6 +4,12 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHost
+import androidx.navigation.Navigation
+import androidx.navigation.compose.NavHost
+import com.example.pokedex_project.MainActivity
+import com.example.pokedex_project.model.Routes
 
 class LoginViewModel:ViewModel() {
 
@@ -22,14 +28,14 @@ class LoginViewModel:ViewModel() {
         _isLoginEnabled.value = enableLogin(name, password)
     }
 
-    fun enableLogin(email:String, password: String) =
+    fun enableLogin(name:String, password: String) =
         password.length > 6
 }
 
-    fun loginPressed(){
+    fun loginPressed(navController: NavController){
 
     }
 
-    fun signupPressed(){
-
+    fun signupPressed(navController: NavController){
+        navController.navigate(Routes.Signup.route)
     }
