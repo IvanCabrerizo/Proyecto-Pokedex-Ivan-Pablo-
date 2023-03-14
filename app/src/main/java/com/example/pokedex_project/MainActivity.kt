@@ -10,6 +10,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.pokedex_project.Login.LoginScreen
+import com.example.pokedex_project.Login.LoginViewModel
+import com.example.pokedex_project.Signup.SignupScreen
+import com.example.pokedex_project.Signup.SignupViewModel
+import com.example.pokedex_project.model.Routes
 import com.example.pokedex_project.ui.theme.PokedexProjectTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +30,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Test()
+                    val navigationController = rememberNavController( )
+                    NavHost(navController = navigationController, startDestination =  "LoginScreen" ){
+                        composable(Routes.Login.route)   { LoginScreen(LoginViewModel(), navigationController)}
+                        composable(Routes.Signup.route) { SignupScreen(SignupViewModel(), navigationController)}
+                    }
                 }
             }
         }
@@ -30,14 +42,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Test() {
-
+fun Greeting(name: String) {
+    Text(text = "Este es el merge a la rama master" + name)
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    PokedexProjectTheme {
-        Test()
-    }
-}
