@@ -33,7 +33,12 @@ class LoginViewModel:ViewModel() {
 }
 
     fun loginPressed(navController: NavController){
-
+        /*
+        *
+        * Ivan tu vas aquí
+        *
+        * */
+        navController.navigate(Routes.Pokedex.route)
     }
 
     fun signupPressed(navController: NavController){

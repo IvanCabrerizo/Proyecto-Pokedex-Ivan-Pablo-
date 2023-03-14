@@ -6,5 +6,5 @@ sealed class Routes(val route: String) {
 
     object Login:Routes("LoginScreen")
     object Signup:Routes("SignupScreen")
-
+    object Pokedex:Routes("PokedexScreen")
 }

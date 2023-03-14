@@ -15,6 +15,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.pokedex_project.Login.LoginScreen
 import com.example.pokedex_project.Login.LoginViewModel
+import com.example.pokedex_project.Pokedex.PokedexScreen
+import com.example.pokedex_project.Pokedex.PokedexViewModel
 import com.example.pokedex_project.Signup.SignupScreen
 import com.example.pokedex_project.Signup.SignupViewModel
 import com.example.pokedex_project.model.Routes
@@ -34,6 +36,7 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController = navigationController, startDestination =  "LoginScreen" ){
                         composable(Routes.Login.route)   { LoginScreen(LoginViewModel(), navigationController)}
                         composable(Routes.Signup.route) { SignupScreen(SignupViewModel(), navigationController)}
+                        composable(Routes.Pokedex.route) { PokedexScreen(PokedexViewModel(), navigationController) }
                     }
                 }
             }
