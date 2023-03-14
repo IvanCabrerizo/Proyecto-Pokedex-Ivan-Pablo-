@@ -40,5 +40,11 @@ class SignupViewModel:ViewModel() {
 }
 
 fun signupPressed2(navController: NavController){
+    /*
+    *
+    *Ivan trabaja aquí*
+    *
+    *
+     */
     navController.navigate(Routes.Login.route)
 }
