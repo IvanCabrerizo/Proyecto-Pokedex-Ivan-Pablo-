@@ -1,6 +1,7 @@
 package com.example.pokedex_project.Pokedex
 
 import androidx.compose.material.ScaffoldState
+import androidx.compose.material.icons.Icons
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -39,22 +40,29 @@ fun getPokemons(): List<Pokemon> {
             "Bulbasaur",
             "Planta",
             "Veneno",
-            "https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png"
+            "https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png",
+            false
         ),
         Pokemon(
             1,
             "Bulbasaur",
             "Planta",
             "Veneno",
-            "https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png"
+            "https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png",
+            false
         ),
         Pokemon(
             1,
             "Bulbasaur",
             "Planta",
             "Veneno",
-            "https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png"
+            "https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png",
+            false
         )
     )
     return lista
+}
+fun onClickFav(fav:Boolean):Boolean{
+    val like:Boolean = !fav
+    return like
 }

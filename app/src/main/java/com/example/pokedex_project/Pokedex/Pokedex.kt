@@ -10,8 +10,10 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.StarOutline
+import androidx.compose.material.icons.outlined.StarOutline
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -111,7 +113,7 @@ fun Mydrawer(onCloseDrawer: () -> Unit) {
 @Composable
 fun RecyclerViewPokemon(modifier: Modifier) {
     LazyColumn {
-        items(getPokemons()){ Pokemon ->
+        items(getPokemons()) { Pokemon ->
             ItemPokemon(pokemon = Pokemon)
         }
     }
@@ -131,7 +133,9 @@ fun ItemPokemon(pokemon: Pokemon) {
             .height(90.dp)
     ) {
         ConstraintLayout {
-            val (foto, id, nombre, tipo, tipo2) = createRefs()
+            val (foto, id, nombre, tipo, tipo2, fav) = createRefs()
+            var liked by remember { mutableStateOf(false) }
+            liked = pokemon.liked
             AsyncImage(model = pokemon.imagen, contentDescription = "Foto del pokemon",
                 Modifier
                     .constrainAs(foto)
@@ -144,20 +148,38 @@ fun ItemPokemon(pokemon: Pokemon) {
                 start.linkTo(foto.end)
                 top.linkTo(parent.top)
             })
-            Text(text = "Name: " + pokemon.nombre, Modifier.constrainAs(nombre){
+            Text(text = "Name: " + pokemon.nombre, Modifier.constrainAs(nombre) {
                 start.linkTo(id.start)
                 top.linkTo(id.bottom)
             })
-            Text(text ="Type: " + pokemon.tipo1, Modifier.constrainAs(tipo){
+            Text(text = "Type: " + pokemon.tipo1, Modifier.constrainAs(tipo) {
                 start.linkTo(id.start)
                 top.linkTo(nombre.bottom)
             })
-            if (!pokemon.tipo2.isNullOrEmpty()){
-            Text(text ="Second type: " + pokemon.tipo2!!, Modifier.constrainAs(tipo2){
-                start.linkTo(id.start)
-                top.linkTo(tipo.bottom)
-            })
+            if (!pokemon.tipo2.isNullOrEmpty()) {
+                Text(text = "Second type: " + pokemon.tipo2!!, Modifier.constrainAs(tipo2) {
+                    start.linkTo(id.start)
+                    top.linkTo(tipo.bottom)
+                })
             }
+            Icon(
+                imageVector =
+                if (liked) {
+                    Icons.Filled.Star
+                } else {
+                    Icons.Filled.StarOutline
+                },
+                contentDescription = "Icon that states if the pokemon has been favved",
+                Modifier
+                        .constrainAs(fav) {
+                    top.linkTo(tipo2.top)
+                    start.linkTo(tipo2.end)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(parent.bottom)
+                }
+                    .clickable { onClickFav(liked) }
+            )
+
         }
 
     }

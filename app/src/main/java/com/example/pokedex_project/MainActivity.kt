@@ -1,6 +1,8 @@
 package com.example.pokedex_project
 
 import android.os.Bundle
+import android.window.SplashScreen
+import android.window.SplashScreenView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +21,7 @@ import com.example.pokedex_project.Pokedex.PokedexScreen
 import com.example.pokedex_project.Pokedex.PokedexViewModel
 import com.example.pokedex_project.Signup.SignupScreen
 import com.example.pokedex_project.Signup.SignupViewModel
+import com.example.pokedex_project.SplashScreen.SplasshScreen
 import com.example.pokedex_project.model.Routes
 import com.example.pokedex_project.ui.theme.PokedexProjectTheme
 
@@ -33,7 +36,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     val navigationController = rememberNavController( )
-                    NavHost(navController = navigationController, startDestination =  "LoginScreen" ){
+                    NavHost(navController = navigationController, startDestination =  Routes.SplashScreen.route ){
+                        composable(Routes.SplashScreen.route){ SplasshScreen(navController = navigationController) }
                         composable(Routes.Login.route)   { LoginScreen(LoginViewModel(), navigationController)}
                         composable(Routes.Signup.route) { SignupScreen(SignupViewModel(), navigationController)}
                         composable(Routes.Pokedex.route) { PokedexScreen(PokedexViewModel(), navigationController) }

@@ -7,5 +7,6 @@ data class Pokemon (
     var nombre:String,
     var tipo1:String,
     var tipo2:String?,
-    var imagen:String
+    var imagen:String,
+    var liked:Boolean
         )
