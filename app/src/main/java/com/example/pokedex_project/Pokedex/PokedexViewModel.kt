@@ -1,6 +1,7 @@
 package com.example.pokedex_project.Pokedex
 
 import androidx.compose.material.ScaffoldState
+import androidx.compose.material.icons.Icons
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
