@@ -20,7 +20,7 @@ class PokemonRepository {
     }
 
     suspend fun getAllPokemon(): List<Pokemon> {
-        val response = pokemonApi.getAllPokemon(limit = 200)
+        val response = pokemonApi.getAllPokemon(limit = 50)
         return response.results.map { result ->
             val id = extractIdFromUrl(result.url)
             pokemonApi.getPokemonById(id)
