@@ -1,6 +1,8 @@
 package com.example.pokedex_project.Pokedex
 
+import android.annotation.SuppressLint
 import android.content.ClipData.Item
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -11,6 +13,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -108,11 +112,20 @@ fun Mydrawer(onCloseDrawer: () -> Unit) {
 * Recyclerview que contendrá a los pokemons
 *
 * */
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun RecyclerViewPokemon(modifier: Modifier) {
+    val coroutineScope = rememberCoroutineScope()
+    val pokemonListState = remember { mutableStateOf(emptyList<Pokemon>()) }
+
+    coroutineScope.launch {
+        pokemonListState.value = getPokemons()
+    }
+
     LazyColumn {
-        items(getPokemons()){ Pokemon ->
+        items(pokemonListState.value) { Pokemon ->
             ItemPokemon(pokemon = Pokemon)
+            Log.i("Prueba", pokemonListState.value.toString())
         }
     }
 }
@@ -132,7 +145,7 @@ fun ItemPokemon(pokemon: Pokemon) {
     ) {
         ConstraintLayout {
             val (foto, id, nombre, tipo, tipo2) = createRefs()
-            AsyncImage(model = pokemon.imagen, contentDescription = "Foto del pokemon",
+            AsyncImage(model = pokemon.sprites.front_default, contentDescription = "Foto del pokemon",
                 Modifier
                     .constrainAs(foto)
                     {
@@ -144,20 +157,14 @@ fun ItemPokemon(pokemon: Pokemon) {
                 start.linkTo(foto.end)
                 top.linkTo(parent.top)
             })
-            Text(text = "Name: " + pokemon.nombre, Modifier.constrainAs(nombre){
+            Text(text = "Name: " + pokemon.name, Modifier.constrainAs(nombre){
                 start.linkTo(id.start)
                 top.linkTo(id.bottom)
             })
-            Text(text ="Type: " + pokemon.tipo1, Modifier.constrainAs(tipo){
+            Text(text ="Type: " + pokemon.types[0], Modifier.constrainAs(tipo){
                 start.linkTo(id.start)
                 top.linkTo(nombre.bottom)
             })
-            if (!pokemon.tipo2.isNullOrEmpty()){
-            Text(text ="Second type: " + pokemon.tipo2!!, Modifier.constrainAs(tipo2){
-                start.linkTo(id.start)
-                top.linkTo(tipo.bottom)
-            })
-            }
         }
 
     }

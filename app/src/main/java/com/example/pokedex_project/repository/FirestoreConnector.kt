@@ -1,6 +1,5 @@
-package com.example.pokedex_project.Repository
+package com.example.pokedex_project.repository
 
-import android.content.ContentValues.TAG
 import android.util.Log
 import com.example.pokedex_project.model.User
 import com.google.firebase.firestore.ktx.firestore

@@ -5,8 +5,8 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokedex_project.model.Pokemon
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import com.example.pokedex_project.repository.PokemonRepository
+import kotlinx.coroutines.*
 
 class PokedexViewModel:ViewModel() {
 
@@ -26,35 +26,15 @@ fun onMenuPressed(coroutineScope: CoroutineScope, scaffoldState: ScaffoldState){
 fun onCloseDrawer(coroutineScope: CoroutineScope, scaffoldState: ScaffoldState){
     coroutineScope.launch { scaffoldState.drawerState.close() }
 }
-fun getPokemons(): List<Pokemon> {
+suspend fun getPokemons(): List<Pokemon> {
     /*
     *
     * Ivan aquí va la lista de pokemons
     *
     *
     * */
-    var lista = listOf<Pokemon>(
-        Pokemon(
-            1,
-            "Bulbasaur",
-            "Planta",
-            "Veneno",
-            "https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png"
-        ),
-        Pokemon(
-            1,
-            "Bulbasaur",
-            "Planta",
-            "Veneno",
-            "https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png"
-        ),
-        Pokemon(
-            1,
-            "Bulbasaur",
-            "Planta",
-            "Veneno",
-            "https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png"
-        )
-    )
-    return lista
+    val pokemonRepository = PokemonRepository()
+    return withContext(Dispatchers.Main) {
+        pokemonRepository.getAllPokemon()
+    }
 }
