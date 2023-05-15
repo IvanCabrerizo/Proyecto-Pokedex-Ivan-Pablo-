@@ -133,6 +133,7 @@ fun ItemPokemon(pokemon: Pokemon) {
         Modifier
             .fillMaxWidth()
             .height(120.dp)
+            .clickable { onPokemonClicked(pokemon) }
     ) {
         ConstraintLayout {
             val (foto, id, nombre, tipo, tipo2) = createRefs()

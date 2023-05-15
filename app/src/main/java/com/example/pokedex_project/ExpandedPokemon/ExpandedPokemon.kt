@@ -1,6 +1,5 @@
 package com.example.pokedex_project.ExpandedPokemon
 
-import android.widget.ProgressBar
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,21 +7,14 @@ import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
-import com.example.pokedex_project.Login.LoginViewModel
 import com.example.pokedex_project.R
-import com.example.pokedex_project.model.Pokemon
 
 @Composable
-fun expandedPokemonScreen(/*navController: NavController, pokemon: Pokemon*/) {
+fun expandedPokemonScreen(expandedPokemonViewModel: ExpandedPokemonViewModel ,navController: NavController) {
     ConstraintLayout(Modifier.fillMaxSize()) {
         val (foto, nombre, tipo, stat1, stat2, stat3, stat4, stat5, stat6, peso, altura) = createRefs()
         val (stat12, stat22, stat32, stat42, stat52, stat62) = createRefs()
@@ -66,7 +58,8 @@ fun expandedPokemonScreen(/*navController: NavController, pokemon: Pokemon*/) {
         * Tipos de pokemon
         *
         * */
-        Text("Types: " + "Planta " + "Veneno",
+        Text(
+            "Types: " + "Planta " + "Veneno",
             Modifier.constrainAs(tipo) {
                 start.linkTo(izquierda)
                 top.linkTo(nombre.bottom)
@@ -111,10 +104,10 @@ fun expandedPokemonScreen(/*navController: NavController, pokemon: Pokemon*/) {
         *
         * */
         Text(text = "Health",
-        Modifier.constrainAs(stat12){
-            start.linkTo(izquierda)
-            bottom.linkTo(stat1.top)
-        })
+            Modifier.constrainAs(stat12) {
+                start.linkTo(izquierda)
+                bottom.linkTo(stat1.top)
+            })
         LinearProgressIndicator(
             progress = 0.6f,
             Modifier
@@ -132,7 +125,7 @@ fun expandedPokemonScreen(/*navController: NavController, pokemon: Pokemon*/) {
         *
         *
         * */
-        Text("Attack", Modifier.constrainAs(stat22){
+        Text("Attack", Modifier.constrainAs(stat22) {
             start.linkTo(izquierda)
             bottom.linkTo(stat2.top)
         })
@@ -154,10 +147,10 @@ fun expandedPokemonScreen(/*navController: NavController, pokemon: Pokemon*/) {
         *
         * */
         Text(text = "Defense",
-        Modifier.constrainAs(stat32){
-            start.linkTo(izquierda)
-            bottom.linkTo(stat3.top)
-        })
+            Modifier.constrainAs(stat32) {
+                start.linkTo(izquierda)
+                bottom.linkTo(stat3.top)
+            })
         LinearProgressIndicator(
             progress = 0.6f,
             Modifier
@@ -176,10 +169,10 @@ fun expandedPokemonScreen(/*navController: NavController, pokemon: Pokemon*/) {
         *
         * */
         Text(text = "Special attack",
-        Modifier.constrainAs(stat42){
-            start.linkTo(izquierda)
-            bottom.linkTo(stat4.top)
-        })
+            Modifier.constrainAs(stat42) {
+                start.linkTo(izquierda)
+                bottom.linkTo(stat4.top)
+            })
         LinearProgressIndicator(
             progress = 0.6f,
             Modifier
@@ -198,7 +191,7 @@ fun expandedPokemonScreen(/*navController: NavController, pokemon: Pokemon*/) {
         *
         * */
         Text(text = "Special defense",
-            Modifier.constrainAs(stat52){
+            Modifier.constrainAs(stat52) {
                 start.linkTo(izquierda)
                 bottom.linkTo(stat5.top)
             })
@@ -220,10 +213,10 @@ fun expandedPokemonScreen(/*navController: NavController, pokemon: Pokemon*/) {
         *
         * */
         Text(text = "Speed",
-        Modifier.constrainAs(stat62){
-            start.linkTo(izquierda)
-            bottom.linkTo(stat6.top)
-        })
+            Modifier.constrainAs(stat62) {
+                start.linkTo(izquierda)
+                bottom.linkTo(stat6.top)
+            })
         LinearProgressIndicator(
             progress = 0.6f,
             Modifier
@@ -236,11 +229,4 @@ fun expandedPokemonScreen(/*navController: NavController, pokemon: Pokemon*/) {
                 }
         )
     }
-
-}
-
-@Preview
-@Composable
-fun expandedPokemonPreview() {
-    expandedPokemonScreen()
 }
