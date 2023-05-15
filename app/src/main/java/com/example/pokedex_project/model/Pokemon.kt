@@ -10,6 +10,8 @@ data class Pokemon(
     val stats: List<Stat>
 )
 
+
+
 data class Sprites(
     val front_default: String,
     val front_shiny: String,

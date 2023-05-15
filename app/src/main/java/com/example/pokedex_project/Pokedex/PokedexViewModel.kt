@@ -4,6 +4,7 @@ import androidx.compose.material.ScaffoldState
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokedex_project.model.Pokemon
+import com.example.pokedex_project.model.Sprites
 import com.example.pokedex_project.repository.PokemonRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +27,9 @@ fun onMenuPressed(coroutineScope: CoroutineScope, scaffoldState: ScaffoldState) 
 
 fun onCloseDrawer(coroutineScope: CoroutineScope, scaffoldState: ScaffoldState) {
     coroutineScope.launch { scaffoldState.drawerState.close() }
+}
+fun onPokemonClicked(pokemon: Pokemon){
+
 }
 
 suspend fun getPokemons(): List<Pokemon> {

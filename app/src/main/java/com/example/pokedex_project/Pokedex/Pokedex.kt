@@ -132,10 +132,10 @@ fun ItemPokemon(pokemon: Pokemon) {
     Card(
         Modifier
             .fillMaxWidth()
-            .height(90.dp)
+            .height(120.dp)
     ) {
         ConstraintLayout {
-            val (foto, id, nombre, tipo, tipo2, fav) = createRefs()
+            val (foto, id, nombre, tipo, tipo2) = createRefs()
             AsyncImage(model = pokemon.sprites.front_default,
                 contentDescription = "Foto del pokemon",
                 Modifier
