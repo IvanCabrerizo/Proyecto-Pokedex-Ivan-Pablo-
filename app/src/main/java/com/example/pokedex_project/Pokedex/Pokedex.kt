@@ -16,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
+import androidx.navigation.navArgument
 import coil.compose.AsyncImage
 import com.example.pokedex_project.R
 import com.example.pokedex_project.model.Pokemon
@@ -40,7 +41,7 @@ fun PokedexScreen(viewModel: PokedexViewModel, navController: NavController) {
         drawerContent = { Mydrawer() { onCloseDrawer(coroutineScope, scaffoldState) } },
         drawerGesturesEnabled = false
     ) { paddingValues ->
-        RecyclerViewPokemon(modifier = Modifier.padding(paddingValues))
+        RecyclerViewPokemon(modifier = Modifier.padding(paddingValues), navController)
 
     }
 }
@@ -105,7 +106,7 @@ fun Mydrawer(onCloseDrawer: () -> Unit) {
 * */
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun RecyclerViewPokemon(modifier: Modifier) {
+fun RecyclerViewPokemon(modifier: Modifier, navController: NavController) {
     val coroutineScope = rememberCoroutineScope()
     val pokemonListState = remember { mutableStateOf(emptyList<Pokemon>()) }
 
@@ -115,7 +116,7 @@ fun RecyclerViewPokemon(modifier: Modifier) {
 
     LazyColumn {
         items(pokemonListState.value) { Pokemon ->
-            ItemPokemon(pokemon = Pokemon)
+            ItemPokemon(pokemon = Pokemon, navController)
             Log.i("Prueba", pokemonListState.value.toString())
         }
     }
@@ -128,12 +129,12 @@ fun RecyclerViewPokemon(modifier: Modifier) {
 *
 * */
 @Composable
-fun ItemPokemon(pokemon: Pokemon) {
+fun ItemPokemon(pokemon: Pokemon, navController: NavController) {
     Card(
         Modifier
             .fillMaxWidth()
             .height(120.dp)
-            .clickable { onPokemonClicked(pokemon) }
+            .clickable { onPokemonClicked(pokemon, navController) }
     ) {
         ConstraintLayout {
             val (foto, id, nombre, tipo, tipo2) = createRefs()
