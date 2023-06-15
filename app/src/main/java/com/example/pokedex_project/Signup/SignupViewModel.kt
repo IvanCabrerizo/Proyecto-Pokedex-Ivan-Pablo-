@@ -10,6 +10,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.compose.NavHost
 import com.example.pokedex_project.MainActivity
 import com.example.pokedex_project.model.Routes
+import com.example.pokedex_project.repository.FirestoreConnector
 
 class SignupViewModel:ViewModel() {
 
@@ -37,14 +38,15 @@ class SignupViewModel:ViewModel() {
     fun enableRegister(name:String, password: String, repeatPassword: String) =
         (password.length > 6 && password==repeatPassword)
 
+
+    fun signupPressed2(navController: NavController){
+        val username = _name.value
+        val password = _password.value
+        val firestoreConnector = FirestoreConnector()
+        if (username != null && password != null) {
+            firestoreConnector.createUser(username, password)
+        }
+        navController.navigate(Routes.Login.route)
+    }
 }
 
-fun signupPressed2(navController: NavController){
-    /*
-    *
-    *Ivan trabaja aquí*
-    *
-    *
-     */
-    navController.navigate(Routes.Login.route)
-}

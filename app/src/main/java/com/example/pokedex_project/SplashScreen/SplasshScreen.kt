@@ -11,12 +11,20 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.pokedex_project.R
 import com.example.pokedex_project.model.Routes
+import com.example.pokedex_project.model.User
+import com.example.pokedex_project.repository.FirestoreConnector
 import kotlinx.coroutines.delay
-
+class splashScreen{
+    companion object{
+        var userList = mutableListOf<User>()
+    }
+}
 @Composable
-fun SplasshScreen(navController: NavController){
-    LaunchedEffect(key1 = true){
-        delay(2000)
+fun SplasshScreen(navController: NavController) {
+    LaunchedEffect(key1 = true) {
+        delay(3000)
+        val firestoreConnector = FirestoreConnector()
+        splashScreen.userList = firestoreConnector.getUser()
         navController.navigate(Routes.Login.route)
     }
     ConstraintLayout(Modifier.fillMaxSize()) {

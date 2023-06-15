@@ -139,7 +139,7 @@ fun SignupScreen(signupViewModel: SignupViewModel, navController: NavController)
             .fillMaxWidth()
             .fillMaxHeight(0.2f))
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Button(onClick = { signupPressed2(navController) }, enabled = isRegisterEnabled) {
+            Button(onClick = { signupViewModel.signupPressed2(navController) }, enabled = isRegisterEnabled) {
                 Text(text = "Signup")
             }
         }

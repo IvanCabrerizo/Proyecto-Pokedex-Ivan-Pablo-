@@ -11,10 +11,10 @@ class FirestoreConnector {
 
     val usuariosCollectionRef = db.collection("users")
 
-    fun getUser() {
+    fun getUser(): MutableList<User> {
+        val users = mutableListOf<User>()
         usuariosCollectionRef.get()
             .addOnSuccessListener { documents ->
-                val users = mutableListOf<User>()
                 for (document in documents) {
                     val user = User(
                         document["userName"] as String,
@@ -26,6 +26,18 @@ class FirestoreConnector {
             }
             .addOnFailureListener { e ->
                 Log.w("Prueba", "Error al obtener documentos", e)
+            }
+        return users
+    }
+
+    fun createUser(userName: String, password: String) {
+        val user = User(userName, password)
+        usuariosCollectionRef.add(user)
+            .addOnSuccessListener {
+                Log.d("Prueba", "Usuario creado exitosamente")
+            }
+            .addOnFailureListener { e ->
+                Log.w("Prueba", "Error al crear el usuario", e)
             }
     }
 }

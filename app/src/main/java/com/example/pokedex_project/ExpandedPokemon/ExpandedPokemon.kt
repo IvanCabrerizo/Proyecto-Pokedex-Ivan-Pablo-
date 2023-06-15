@@ -1,6 +1,5 @@
 package com.example.pokedex_project.ExpandedPokemon
 
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.LinearProgressIndicator

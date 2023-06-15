@@ -1,7 +1,6 @@
 package com.example.pokedex_project.Pokedex
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,7 +15,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
-import androidx.navigation.navArgument
 import coil.compose.AsyncImage
 import com.example.pokedex_project.R
 import com.example.pokedex_project.model.Pokemon
@@ -117,7 +115,6 @@ fun RecyclerViewPokemon(modifier: Modifier, navController: NavController) {
     LazyColumn {
         items(pokemonListState.value) { Pokemon ->
             ItemPokemon(pokemon = Pokemon, navController)
-            Log.i("Prueba", pokemonListState.value.toString())
         }
     }
 }
